@@ -1,0 +1,32 @@
+# Build output
+/bin/
+/dist/
+/qctx
+/qctx.exe
+
+# Test output
+*.test
+*.out
+coverage.out
+coverage.html
+
+# Editor
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+
+# Secrets and runtime files
+.env
+.env.local
+*.token
+~/.qctx.yaml
+.qctx.yaml
+
+# GoReleaser
+dist/
+
+# Ralph Loop state
+.claude/

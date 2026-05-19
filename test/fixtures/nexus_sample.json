@@ -1,0 +1,18 @@
+{
+  "scanId":"s",
+  "applicationId":"my-svc",
+  "policyEvaluationResult":{
+    "components":[
+      {
+        "componentIdentifier":{"format":"maven","coordinates":{"groupId":"org.apache.commons","artifactId":"commons-text","version":"1.9"}},
+        "pathnames":["pom.xml"],
+        "violations":[{
+          "policyId":"p","policyName":"Security-High","policyThreatCategory":"SECURITY","policyThreatLevel":8,
+          "constraints":[{"reasons":[{"reason":"Found CVE-2022-42889 severity 9.8"}]}],
+          "waived":false
+        }],
+        "remediation":{"versionChanges":[{"toVersion":"1.10.0","type":"next-no-violations"}]}
+      }
+    ]
+  }
+}

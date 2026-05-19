@@ -1,0 +1,41 @@
+version: "2"
+
+run:
+  timeout: 5m
+  go: "1.23"
+
+linters:
+  default: none
+  enable:
+    - errcheck
+    - gosec
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - revive
+    - misspell
+  settings:
+    revive:
+      rules:
+        - name: var-naming
+        - name: error-return
+        - name: error-strings
+        - name: receiver-naming
+    gosec:
+      excludes:
+        - G304  # file inclusion via variable: config/report paths are user-supplied by design
+        - G402  # InsecureSkipVerify: behind opt-in --insecure flag with stderr warning
+  exclusions:
+    rules:
+      - path: _test\.go
+        linters: [errcheck, gosec]
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/RandomCodeSpace/qctx

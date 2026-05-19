@@ -1,0 +1,47 @@
+version: 2
+
+project_name: qctx
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: qctx
+    main: ./cmd/qctx
+    binary: qctx
+    env: [CGO_ENABLED=0]
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+    ldflags:
+      - -s -w
+      - -X github.com/RandomCodeSpace/qctx/internal/version.Version={{ .Version }}
+      - -X github.com/RandomCodeSpace/qctx/internal/version.Commit={{ .ShortCommit }}
+      - -X github.com/RandomCodeSpace/qctx/internal/version.Date={{ .Date }}
+
+archives:
+  - id: qctx
+    ids: [qctx]
+    formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+checksum:
+  name_template: "checksums.txt"
+
+changelog:
+  use: git
+  sort: asc
+  filters:
+    exclude: ['^chore:', '^docs:', '^ci:', '^test:']
+
+dockers:
+  - image_templates:
+      - "registry.example.com/qctx:{{ .Version }}"
+      - "registry.example.com/qctx:latest"
+    dockerfile: Dockerfile
+    use: buildx
+    build_flag_templates:
+      - "--platform=linux/amd64"

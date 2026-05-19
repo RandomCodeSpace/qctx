@@ -1,0 +1,8 @@
+.git
+.gitlab-ci.yml
+bin/
+dist/
+coverage.out
+docs/
+test/
+*.md

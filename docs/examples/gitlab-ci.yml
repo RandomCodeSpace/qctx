@@ -1,0 +1,22 @@
+quality-context:
+  stage: report
+  image: registry.example.com/qctx:0.1.0
+  needs:
+    - job: sonar-scan
+      optional: true
+    - job: nexus-iq-scan
+      artifacts: true
+  variables:
+    SONAR_HOST_URL: "https://sonar.example.com"
+    GITLAB_HOST_URL: "${CI_SERVER_URL}"
+  script:
+    - |
+      qctx snapshot \
+        --mr "${CI_MERGE_REQUEST_PROJECT_URL}/-/merge_requests/${CI_MERGE_REQUEST_IID}" \
+        --nexus-report nexus-iq-report.json \
+        --out qctx-report.jsonl
+  artifacts:
+    paths: [qctx-report.jsonl]
+    expire_in: 30 days
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"

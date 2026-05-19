@@ -1,0 +1,9 @@
+meta
+sonar.issue
+sonar.measure
+sonar.quality_gate
+nexus.violation
+gitlab.mr
+gitlab.mr.diff_summary
+gitlab.pipeline
+gitlab.job
