@@ -37,11 +37,8 @@ changelog:
   filters:
     exclude: ['^chore:', '^docs:', '^ci:', '^test:']
 
-dockers:
-  - image_templates:
-      - "registry.example.com/qctx:{{ .Version }}"
-      - "registry.example.com/qctx:latest"
-    dockerfile: Dockerfile
-    use: buildx
-    build_flag_templates:
-      - "--platform=linux/amd64"
+# Docker image publishing intentionally deferred for v0.1.0.
+# The repo-root `Dockerfile` builds locally via `docker build .` (multi-stage).
+# To publish to ghcr.io later, add a `dockers:` block here that uses a
+# single-stage Dockerfile copying the pre-built binary, plus a workflow
+# step that does `docker login ghcr.io`.
